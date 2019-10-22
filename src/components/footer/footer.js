@@ -1,16 +1,25 @@
-import React from 'react'
-import styled from 'styled-components'
-import tw from 'tailwind.macro'
-import { ContainerPadded } from '../container';
-import ProtectedLink from '../ProtectedLink'
-import {FaTwitter,FaEnvelope} from 'react-icons/fa'
+import React from "react"
+import styled from "styled-components"
+import tw from "tailwind.macro"
+import { ContainerPadded } from "../container"
+import ProtectedLink from "../ProtectedLink"
+import { FaTwitter, FaEnvelope } from "react-icons/fa"
 
-const FooterTop = styled.div`${tw`bg-pink-800 pb-1 mt-20`} background-image: linear-gradient(100deg, #e13fd1 0%, #9200ab 100%);`
-const FooterStyled = styled.footer`${tw`relative bg-blue-600 text-white pt-16 pb-20`} background-image: linear-gradient(100deg, #667EEA 0%, #5A67D8 100%);`
+const FooterTop = styled.div`
+    ${tw`bg-pink-800 pb-1`} background-image: linear-gradient(100deg, #e13fd1 0%, #9200ab 100%);
+`
+const FooterStyled = styled.footer`
+    ${tw`relative bg-blue-600 text-white pt-16 pb-20`} background-image: linear-gradient(100deg, #667EEA 0%, #5A67D8 100%);
+`
 
 const ContactTable = styled.table`
-td { ${tw`px-2 py-1`} }
-a { ${tw`text-gray-300 border-b border-gray-300`}  }`
+    td {
+        ${tw`px-2 py-1`}
+    }
+    a {
+        ${tw`text-gray-300 border-b border-gray-300`}
+    }
+`
 
 const FooterStego = styled.div`${tw`relative ml-auto mr-0`} background-size: contain; background-repeat: no-repeat;  width: 200px; height: 100px;
 
@@ -18,33 +27,66 @@ background-image: url("data:image/svg+xml;base64,Cjxzdmcgd2lkdGg9IjEyNDdweCIgaGV
 }
 `
 
-const Footer = (props) => {
+const Footer = props => {
     return (
         <>
-            <FooterTop/>
+            <FooterTop />
             <FooterStyled>
-                
                 <ContainerPadded>
-
                     <div css={tw`flex flex-wrap`}>
                         <div css={tw`w-full md:w-1/2 mb-8`}>
-                            <small css={tw`block text-base text-center md:text-left`}>&copy; Seb Toombs</small>
+                            <small
+                                css={tw`block text-base text-center md:text-left`}
+                            >
+                                &copy; Seb Toombs
+                            </small>
                         </div>
                         <div css={tw`w-full md:w-1/2 mb-4`}>
-                            <span css={tw`block font-medium text-lg mb-2`}><span css={tw`border-b-2 border-white`}>Get in touch</span></span>
+                            <span css={tw`block font-medium text-lg mb-2`}>
+                                <span css={tw`border-b-2 border-white`}>
+                                    Get in touch
+                                </span>
+                            </span>
                             <ContactTable>
                                 <tbody>
-                                    <tr><td><FaEnvelope/></td><td>Send me an email:</td><td><ProtectedLink target="_blank" rel="noreferrer noopener" href="mailto:seb@sebtoombs.com?subject=Hey seb!&body=Hey Seb, I'd like to work with you...&utm_source=website&utm_medium=click_email&utm_campaign=footer">seb@sebtoombs.com</ProtectedLink></td></tr>
-                                    <tr><td><FaTwitter/></td><td>Twitter:</td><td><a target="_blank" rel="noreferrer noopener" href="https://twitter.com/baffledbasti">@sebtoombs</a></td></tr>
+                                    <tr>
+                                        <td>
+                                            <FaEnvelope />
+                                        </td>
+                                        <td>Send me an email:</td>
+                                        <td>
+                                            <ProtectedLink
+                                                target="_blank"
+                                                rel="noreferrer noopener"
+                                                href="mailto:seb@sebtoombs.com?subject=Hey seb!&body=Hey Seb, I'd like to work with you...&utm_source=website&utm_medium=click_email&utm_campaign=footer"
+                                            >
+                                                seb@sebtoombs.com
+                                            </ProtectedLink>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <FaTwitter />
+                                        </td>
+                                        <td>Twitter:</td>
+                                        <td>
+                                            <a
+                                                target="_blank"
+                                                rel="noreferrer noopener"
+                                                href="https://twitter.com/baffledbasti"
+                                            >
+                                                @sebtoombs
+                                            </a>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </ContactTable>
                         </div>
                     </div>
 
                     <div css={tw`text-right mt-16`}>
-                        <FooterStego/>
+                        <FooterStego />
                     </div>
-                
                 </ContainerPadded>
             </FooterStyled>
         </>
