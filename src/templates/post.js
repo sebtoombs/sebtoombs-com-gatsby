@@ -101,64 +101,58 @@ const Post = props => {
 export default Post
 
 export const query = graphql`
-fragment postDate on StrapiPost {
-  created_at(formatString: "MMMM D, YYYY")
-  publishedDate(formatString: "MMMM D, YYYY")
-}
-fragment postFeaturedImage on StrapiPost {
-  featuredImage {
-    large: childImageSharp {
-      fluid(maxWidth: 1280, maxHeight: 498, cropFocus: CENTER) {
-        ...GatsbyImageSharpFluid
+fragment postFeaturedImage on SanityPost {
+  featuredImage: mainImage {
+    asset {
+      large: fluid(maxWidth: 1280, maxHeight: 498) {
+        ...GatsbySanityImageFluid
       }
-    }
-    small: childImageSharp {
-      fluid(maxWidth: 600, maxHeight: 498, cropFocus: CENTER) {
-        ...GatsbyImageSharpFluid
+      
+      small: fluid(maxWidth: 600, maxHeight: 498) {
+        ...GatsbySanityImageFluid
       }
     }
   }
 }
-fragment postTags on StrapiPost {
-  tags {
+fragment postTags on SanityPost {
+  tags: categories {
     title
-    slug
+    slug {
+      current
+    }
   }
 }
-fragment blogPostData on StrapiPost {
+fragment blogPostData on SanityPost {
   id
-  ...postDate
+  publishedAt
   title
-  strapiId
-  slug
+  slug {
+    current
+  }
   excerpt
   ...postFeaturedImage
   ...postTags
-  readingTime
 }
-  fragment allPostData on StrapiPost {
-    id
-    strapiId
-    updated_at
-    ...postDate
-    content
+  fragment allPostData on SanityPost {
+    title
+    publishedAt
+    slug {
+        current
+    }
+    author {
+        name
+    }
+    excerpt
+    body
     childMarkdownRemark {
       html
     }
-    title
-    id
     ...postFeaturedImage
-    excerpt
-    readingTime
-    seoDescription
-    seoTitle
-    strapiId
-    slug
     ...postTags
   }
 
-  query currentPost($id: Int!) {
-    post: strapiPost(strapiId: { eq: $id }) {
+  query currentPost($id: String!) {
+    post: sanityPost(id: { eq: $id }) {
       ...allPostData
     }
   }

@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: `.env`, //.${process.env.NODE_ENV}
+})
+
 module.exports = {
   siteMetadata: {
     title: `SebToombs.com`,
@@ -43,7 +47,7 @@ module.exports = {
         url: "http://localhost:1337/graphql",
       },
     },*/
-    {
+    /*{
       resolve: `gatsby-source-strapi`,
       options: {
         apiURL: `http://localhost:1337`,
@@ -55,7 +59,7 @@ module.exports = {
           password: "kinXLPWrDcWpH2WbYuCZ",
         },
       },
-    },
+    },*/
     /*{
       resolve: "gatsby-source-graphql",
       options: {
@@ -67,6 +71,15 @@ module.exports = {
         url: "http://localhost:1337/graphql",
       },
     },*/
+
+    {
+      resolve: 'gatsby-source-sanity',
+      options: {
+        projectId: 'qppywcli',
+        dataset: 'post',
+        token: process.env.SANITY_TOKEN,
+      },
+    },
 
 
     `gatsby-plugin-postcss`,
@@ -91,9 +104,9 @@ module.exports = {
         // How to resolve each field`s value for a supported node type
         resolvers: {
           // For any node of type MarkdownRemark, list how to resolve the fields` values
-          StrapiPost: {
+          SanityPost: {
             title: node => node.title,
-            tags: node => node.tags.map(tag=>tag.title),
+            tags: node => node.categories.map(tag=>tag.title),
             slug: node => node.slug,
             excerpt: node => node.excerpt
           },

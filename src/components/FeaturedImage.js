@@ -15,14 +15,14 @@ const FeaturedImage = (props) => {
   const data = useStaticQuery(staticQuery)
 
   const GetFeaturedImage = () => {
-    const image = props.post.featuredImage ? props.post.featuredImage : data.placeholderImage
-    if(!isBrowser) return image.small.fluid
-    if((viewport().w <= 640 && size !== 'large') || size === 'small') return image.small.fluid
-    return image.large.fluid
+    const image = props.post.featuredImage ? props.post.featuredImage : {asset: data.placeholderImage}
+    if(!isBrowser) return image.asset.small
+    if((viewport().w <= 640 && size !== 'large') || size === 'small') return image.asset.small
+    return image.asset.large
   }
 
-  if(props.link) return (<Link to={`/blog/${props.post.slug}`}><Img fluid={GetFeaturedImage()} /></Link>)
-  return (<FeaturedImageStyled as={Img} fluid={GetFeaturedImage()} />)
+if(props.link) return (<Link to={`/blog/${props.post.slug.current}`}><FeaturedImageStyled as={Img} fluid={GetFeaturedImage()} width="600" height="498"/></Link>)
+  return (<FeaturedImageStyled as={Img} fluid={GetFeaturedImage()} width="1280" height="498"/>)
 }
 
 export default FeaturedImage

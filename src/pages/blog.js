@@ -195,7 +195,7 @@ const BlogPage = (props) => {
                             <CardWithImage key={post.slug} image={(<FeaturedImage post={post} link={true} size="large"/>)} horizontal={true} xwide={true}>
                                 <CardBody>
                                     <div css={tw`flex flex-wrap items-center mb-2`}>
-                                        <a href={"#"}
+                                        <a href={`/tag/${post.tags[0].slug}`}
                                         css={tw`inline-block text-sm text-pink-300`}>{post.tags[0].title}</a>
                                         <span css={tw`text-gray-600 mx-2`}><MdFiberManualRecord css={tw`w-2`}/></span>
                                         <span css={tw`text-gray-600 text-xs`}>{post.readingTime}</span>
@@ -240,18 +240,20 @@ export default BlogPage
 
 
 export const query = graphql`query blogPage {
-    posts: allStrapiPost(sort: {fields: created_at, order: DESC}, filter: {draft: {ne: true}}, limit: 30) {
+    posts: allSanityPost(sort: {fields: publishedAt, order: DESC}, limit: 30) {
         edges {
-            post: node {
+            node {
                 ...allPostData
             }
         }
     }
-    tags: allStrapiTag {
+    tags: allSanityCategory {
         edges {
             tag: node {
                 title
-                slug
+                slug {
+                    current
+                }
             }
         }
     }

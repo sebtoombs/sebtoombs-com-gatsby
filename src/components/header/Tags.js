@@ -15,11 +15,13 @@ const IconWrapper = styled.span`${tw`inline-flex self-center`} svg { ${tw`inline
 const Tags = (props) => {
 
     const data = useStaticQuery(graphql`{
-        tags: allStrapiTag {
+        tags: allSanityCategory {
             edges {
                 node {
                     title
-                    slug
+                    slug {
+                        current
+                    }
                 }
             }
         }

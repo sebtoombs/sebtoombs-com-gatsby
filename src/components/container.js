@@ -27,3 +27,8 @@ export default Container
 
 const ContainerPadded = styled(Container)`${tw`px-4 md:px-8`}`
 export {ContainerPadded}
+
+
+
+const ContainerReading = styled(ContainerPadded)`${tw`max-w-4xl py-10 lg:py-20`}`
+export {ContainerReading}

@@ -24,11 +24,13 @@ const createPosts = async ({graphql, actions}) => {
     const {createPage, createRedirect} = actions
 
     const queryPosts = `{
-        allStrapiPost {
+        posts: allSanityPost {
             edges {
                 node {
-                    id: strapiId
-                    slug
+                    id
+                    slug {
+                        current
+                    }
                 }
             }
         }
@@ -38,14 +40,14 @@ const createPosts = async ({graphql, actions}) => {
 
     if(result.errors) throw new Error(result.errors)
 
-    const {allStrapiPost} = result.data
+    const {posts} = result.data
 
     const component = path.resolve(`./src/templates/post.js`)
 
-    allStrapiPost.edges.forEach(({node}) => {
-        console.log(`Creating post at: /post/${node.slug}/`)
+    posts.edges.forEach(({node}) => {
+        console.log(`Creating post at: /post/${node.slug.current}/`)
         createPage({
-            path: `/blog/${node.slug}/`,
+            path: `/blog/${node.slug.current}/`,
             component: slash(component),
             context: {
                 id: node.id
@@ -60,11 +62,13 @@ const createTags = async({graphql, actions}) => {
     const {createPage, createRedirect} = actions
 
     const queryTags = `{
-        allStrapiTag {
+        tags: allSanityCategory {
             edges {
                 node {
-                    id: strapiId
-                    slug
+                    id
+                    slug {
+                        current
+                    }
                     title
                 }
             }
@@ -75,16 +79,16 @@ const createTags = async({graphql, actions}) => {
 
     if(result.errors) throw new Error(result.errors)
 
-    const {allStrapiTag} = result.data
+    const {tags} = result.data
 
     const component = path.resolve(`./src/templates/tag.js`)
 
-    allStrapiTag.edges.forEach(edge => {
+    tags.edges.forEach(({node}) => {
         createPage({
-            path: `/tag/${edge.node.slug}/`,
+            path: `/tag/${node.slug.current}/`,
             component: slash(component),
             context: {
-                id: edge.node.id
+                id: node.id
             }
         })
     })
@@ -92,7 +96,7 @@ const createTags = async({graphql, actions}) => {
 
 
 
-
+/*
 const readingTime = require('reading-time')
 
 exports.sourceNodes = ({
@@ -124,9 +128,7 @@ exports.sourceNodes = ({
         })
     ])
 }
-
-
-
+*/
 
 
 const showdown = require('showdown')
@@ -144,13 +146,13 @@ exports.onCreateNode = async function(
 ) {
   const { createNode, createParentChildLink } = actions
 
-  if(node.internal.type !== `StrapiPost`) {
+  if(node.internal.type !== `SanityPost`) {
       return {}
   }
 
   //console.log('PARSING MARKDOWN NODE!!', node)
 
-  const content = ""+node.content;
+  const content = ""+node.body;
 
   const converter = new showdown.Converter();
   const html = converter.makeHtml(content)
@@ -176,3 +178,77 @@ exports.onCreateNode = async function(
 
   return markdownNode
 }
+
+
+exports.sourceNodes = ({ actions, schema }) => {
+    const { createTypes } = actions
+    const typeDefs = [
+        schema.buildObjectType({
+          name: 'SanityPost_Post',
+          interfaces: ["Node"],
+          fields: {
+            slug: {
+              type: 'String!',
+              resolve(parent) {
+                return parent.slug.current
+              }
+            }
+          }
+        })
+      ]
+    createTypes(typeDefs)
+}
+
+exports.createResolvers = ({ createResolvers,schema }) => {
+    const resolvers = {
+      SanityCategory: {
+        posts: {
+            type: [`SanityPost`],
+          resolve: (source, args, context, info) => {
+            return context.nodeModel.runQuery({
+                query: { filter: { categories: {slug: {current: { eq: source.slug.current } } }}},
+                type: `SanityPost`,
+                firstOnly: false,
+            })
+          }
+        },
+      },
+      allSanityPost_Posts: {
+        type: [`SanityPost_Post`],
+        resolve: (source, args, context, info) => {
+            return context.nodeModel.runQuery({
+                query: {},
+                type: `SanityPost`,
+                firstOnly: false
+            }).map(post=>{
+                return {
+                    slug: post.slug.current
+                }
+            })
+        }
+      }
+      /*SanityPost: {
+          slug: {
+              type: `String`,
+              resolve: (source, args, context, info) => {
+                  return source.slug.current
+              }
+          }
+      }*/
+      /*SanityPost: {
+          featuredImage: {
+            
+            resolve: (source, args, context, info) => {
+                return {
+                    extension: source.mainImage.asset.extension,
+                    path: source.mainImage.asset.path,
+                    url: source.mainImage.asset.url,
+                    mimeType: source.mainImage.asset.mimeType
+                }
+                return source.mainImage.asset;
+            }
+          }
+      }*/
+    }
+    createResolvers(resolvers)
+  }

@@ -53,10 +53,12 @@ const Tag = props => {
 export default Tag
 
 export const query = graphql`
-  query currentTag($id: Int!) {
-    tag: strapiTag(strapiId: { eq: $id }) {
+  query currentTag($id: String!) {
+    tag: sanityCategory(id: { eq: $id }) {
       title
-      slug
+      slug {
+        current
+      }
       posts {
           ...blogPostData
       }
