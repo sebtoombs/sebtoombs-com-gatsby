@@ -7,21 +7,17 @@
 const slash = require(`slash`)
 const path = require(`path`)
 
-
-
+/*
 exports.createPages = async({graphql, actions}) => {
     //const {createPage, createRedirect} = actions
 
     await createTags({graphql, actions})
     await createPosts({graphql, actions})
 }
+*/
 
-
-
-
-const createPosts = async ({graphql, actions}) => {
-
-    const {createPage, createRedirect} = actions
+const createPosts = async ({ graphql, actions }) => {
+    const { createPage, createRedirect } = actions
 
     const queryPosts = `{
         posts: allSanityPost {
@@ -38,28 +34,26 @@ const createPosts = async ({graphql, actions}) => {
 
     const result = await graphql(queryPosts)
 
-    if(result.errors) throw new Error(result.errors)
+    if (result.errors) throw new Error(result.errors)
 
-    const {posts} = result.data
+    const { posts } = result.data
 
     const component = path.resolve(`./src/templates/post.js`)
 
-    posts.edges.forEach(({node}) => {
+    posts.edges.forEach(({ node }) => {
         console.log(`Creating post at: /post/${node.slug.current}/`)
         createPage({
             path: `/blog/${node.slug.current}/`,
             component: slash(component),
             context: {
-                id: node.id
-            }
+                id: node.id,
+            },
         })
     })
 }
 
-
-
-const createTags = async({graphql, actions}) => {
-    const {createPage, createRedirect} = actions
+const createTags = async ({ graphql, actions }) => {
+    const { createPage, createRedirect } = actions
 
     const queryTags = `{
         tags: allSanityCategory {
@@ -77,24 +71,22 @@ const createTags = async({graphql, actions}) => {
 
     const result = await graphql(queryTags)
 
-    if(result.errors) throw new Error(result.errors)
+    if (result.errors) throw new Error(result.errors)
 
-    const {tags} = result.data
+    const { tags } = result.data
 
     const component = path.resolve(`./src/templates/tag.js`)
 
-    tags.edges.forEach(({node}) => {
+    tags.edges.forEach(({ node }) => {
         createPage({
             path: `/tag/${node.slug.current}/`,
             component: slash(component),
             context: {
-                id: node.id
-            }
+                id: node.id,
+            },
         })
     })
 }
-
-
 
 /*
 const readingTime = require('reading-time')
@@ -130,56 +122,53 @@ exports.sourceNodes = ({
 }
 */
 
-
-const showdown = require('showdown')
+const showdown = require("showdown")
 const _ = require(`lodash`)
 
-exports.onCreateNode = async function(
-  {
+exports.onCreateNode = async function({
     node,
     loadNodeContent,
     actions,
     createNodeId,
     reporter,
     createContentDigest,
-  }
-) {
-  const { createNode, createParentChildLink } = actions
+}) {
+    const { createNode, createParentChildLink } = actions
 
-  if(node.internal.type !== `SanityPost`) {
-      return {}
-  }
+    if (node.internal.type !== `SanityPost`) {
+        return {}
+    }
 
-  //console.log('PARSING MARKDOWN NODE!!', node)
+    //console.log('PARSING MARKDOWN NODE!!', node)
 
-  const content = ""+node.body;
+    const content = "" + node.body
 
-  const converter = new showdown.Converter();
-  const html = converter.makeHtml(content)
+    const converter = new showdown.Converter()
+    const html = converter.makeHtml(content)
 
-  let markdownNode = {
-    id: createNodeId(`${node.id} >>> MarkdownRemark`),
-    children: [],
-    parent: node.id,
-    internal: {
-      content: content,
-      type: `MarkdownRemark`,
-    },
-  }
+    let markdownNode = {
+        id: createNodeId(`${node.id} >>> MarkdownRemark`),
+        children: [],
+        parent: node.id,
+        internal: {
+            content: content,
+            type: `MarkdownRemark`,
+        },
+    }
 
-  markdownNode.html = html
-  
-  markdownNode.rawMarkdownBody = node.content
+    markdownNode.html = html
 
-  markdownNode.internal.contentDigest = createContentDigest(markdownNode)
+    markdownNode.rawMarkdownBody = node.content
 
-  createNode(markdownNode)
-  createParentChildLink({ parent: node, child: markdownNode })
+    markdownNode.internal.contentDigest = createContentDigest(markdownNode)
 
-  return markdownNode
+    createNode(markdownNode)
+    createParentChildLink({ parent: node, child: markdownNode })
+
+    return markdownNode
 }
 
-
+/*
 exports.sourceNodes = ({ actions, schema }) => {
     const { createTypes } = actions
     const typeDefs = [
@@ -197,7 +186,9 @@ exports.sourceNodes = ({ actions, schema }) => {
         })
       ]
     createTypes(typeDefs)
-}
+}*/
+
+/*
 
 exports.createResolvers = ({ createResolvers,schema }) => {
     const resolvers = {
@@ -235,7 +226,7 @@ exports.createResolvers = ({ createResolvers,schema }) => {
               }
           }
       }*/
-      /*SanityPost: {
+/*SanityPost: {
           featuredImage: {
             
             resolve: (source, args, context, info) => {
@@ -248,7 +239,7 @@ exports.createResolvers = ({ createResolvers,schema }) => {
                 return source.mainImage.asset;
             }
           }
-      }*/
+      }*
     }
     createResolvers(resolvers)
-  }
+  }*/

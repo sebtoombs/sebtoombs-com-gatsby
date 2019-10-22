@@ -1,2 +1,2 @@
-import Signup from './signup'
-export default Signup;
+import Signup from "./Signup.js"
+export default Signup
