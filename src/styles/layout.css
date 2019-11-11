@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Space Mono', monospace;
+}
+
+a {
+  @apply text-indigo-800;
+  transition: 0.2s color ease;
+
+  &:hover {
+    @apply text-indigo-900
+  }
+}
