@@ -4,7 +4,7 @@ import styled from "styled-components/macro"
 
 import Layout from "../layouts/layout"
 
-import SEO from "../components/seo"
+import SEO from "../components/SEO"
 import Container from "../components/Container"
 import Heading from "../components/Heading"
 import Row from "../components/Row"
