@@ -44,8 +44,17 @@ module.exports = {
       },
     },
     `gatsby-plugin-postcss`,
+    `gatsby-plugin-styled-components`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    {
+      resolve: "gatsby-plugin-robots-txt",
+      options: {
+        host: "https://sebtoombs.com",
+        sitemap: "https://sebtoombs.com/sitemap.xml",
+        policy: [{ userAgent: "*", allow: "/" }],
+      },
+    },
     /*{
       resolve: `gatsby-plugin-manifest`,
       options: {
