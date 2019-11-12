@@ -3,6 +3,7 @@ module.exports = {
     title: `Seb Toombs`,
     description: `Hi I'm Seb Toombs, a web developer & UX designer from Hobart, Tasmania, Australia.`,
     author: `@sebtoombs`,
+    siteUrl: "https://sebtoombs.com",
   },
   plugins: [
     {
@@ -47,6 +48,7 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-sitemap`,
     {
       resolve: "gatsby-plugin-robots-txt",
       options: {
