@@ -31,13 +31,13 @@ const About = props => {
       </Heading>
       <Row css={tw`mb-8`}>
         <Col w="1" md="1/2" css={tw`text-right`}>
-          <SVGWrapper>
-            <MaleAvatar
-              css={`
-                width: 64px;
-                ${tw`mx-auto md:ml-auto md:mr-4 mb-3`}
-              `}
-            />
+          <SVGWrapper
+            css={`
+              width: 64px;
+              ${tw`mx-auto md:ml-auto md:mr-4 mb-3`}
+            `}
+          >
+            <MaleAvatar />
           </SVGWrapper>
         </Col>
         <Col w="1" md="1/2">

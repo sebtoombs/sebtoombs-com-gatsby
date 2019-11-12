@@ -19,7 +19,7 @@ const LinkWrap = styled.span`
 `
 
 const LinkStyled = styled.a`
-  ${tw`inline-block text-indigo-800`}
+  ${tw`inline-block text-indigo-800 px-1`}
 
   & > svg {
     ${tw`inline-block ml-2 text-sm`}
