@@ -4,7 +4,8 @@ import styled from "styled-components/macro"
 import Heading from "../Heading"
 import Row from "../Row"
 import Col from "../Col"
-import MaleAvatar from "../../images/male_avatar"
+import SVGWrapper from "../SVGWrapper"
+import MaleAvatar from "../../images/male_avatar.svg"
 import ReadingContainer from "../ReadingContainer"
 import { FaInfo, FaMapMarker } from "react-icons/fa"
 import P from "../P"
@@ -30,12 +31,14 @@ const About = props => {
       </Heading>
       <Row css={tw`mb-8`}>
         <Col w="1" md="1/2" css={tw`text-right`}>
-          <MaleAvatar
-            css={`
-              width: 64px;
-              ${tw`mx-auto md:ml-auto md:mr-4 mb-3`}
-            `}
-          />
+          <SVGWrapper>
+            <MaleAvatar
+              css={`
+                width: 64px;
+                ${tw`mx-auto md:ml-auto md:mr-4 mb-3`}
+              `}
+            />
+          </SVGWrapper>
         </Col>
         <Col w="1" md="1/2">
           <AboutList>

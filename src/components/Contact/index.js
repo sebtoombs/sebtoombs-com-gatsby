@@ -6,7 +6,8 @@ import Row from "../Row"
 import Col from "../Col"
 import ReadingContainer from "../ReadingContainer"
 import P from "../P"
-import Conversation from "../../images/conversation"
+import SVGWrapper from "../SVGWrapper"
+import Conversation from "../../images/conversation.svg"
 
 import Link from "../Link"
 import { FaEnvelope, FaTwitter } from "react-icons/fa"
@@ -71,7 +72,9 @@ const Contact = props => {
           </ContactList>
         </Col>
         <Col w="1" md="1/2">
-          <Conversation />
+          <SVGWrapper>
+            <Conversation />
+          </SVGWrapper>
         </Col>
       </Row>
     </ReadingContainer>

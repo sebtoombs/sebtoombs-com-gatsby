@@ -1,10 +1,4 @@
-import React from "react"
-import SVGWrapper from "../components/SVGWrapper"
-
-const MaleAvatar = props => {
-  return (
-    <SVGWrapper {...props}>
-      <svg
+<svg
         id="e59edb86-a3bc-4694-8aac-31e565ca5cfc"
         data-name="Layer 1"
         xmlns="http://www.w3.org/2000/svg"
@@ -72,8 +66,3 @@ const MaleAvatar = props => {
           fill="#2f2e41"
         />
       </svg>
-    </SVGWrapper>
-  )
-}
-
-export default MaleAvatar

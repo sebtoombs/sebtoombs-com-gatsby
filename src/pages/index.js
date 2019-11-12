@@ -14,10 +14,12 @@ import Section from "../components/Section"
 import About from "../components/About"
 import Contact from "../components/Contact"
 
-import CodeThinking from "../images/code_thinking.js"
 import Button from "../components/Button"
 
 import { FaTwitter, FaEnvelope, FaGlobe } from "react-icons/fa"
+
+import SVGWrapper from "../components/SVGWrapper"
+import CodeThinking from "../images/code_thinking.svg"
 
 const ContactItem = styled.a`
   ${tw`px-6 md:px-10`}
@@ -49,7 +51,9 @@ const IndexPage = () => (
           </div>
         </Col>
         <Col w="1" md="1/2">
-          <CodeThinking />
+          <SVGWrapper>
+            <CodeThinking />
+          </SVGWrapper>
         </Col>
       </Row>
 

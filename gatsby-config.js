@@ -44,6 +44,14 @@ module.exports = {
         display: "swap",
       },
     },
+    {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /\.svg$/, // See below to configure properly
+        },
+      },
+    },
     `gatsby-plugin-postcss`,
     `gatsby-plugin-styled-components`,
     `gatsby-transformer-sharp`,

@@ -1,10 +1,4 @@
-import React from "react"
-import SVGWrapper from "../components/SVGWrapper"
-
-const Conversation = props => {
-  return (
-    <SVGWrapper {...props}>
-      <svg
+<svg
         id="d000d172-d3f6-4067-9bff-b7a6a8e5b081"
         data-name="Layer 1"
         xmlns="http://www.w3.org/2000/svg"
@@ -821,8 +815,3 @@ const Conversation = props => {
           fill="#444053"
         />
       </svg>
-    </SVGWrapper>
-  )
-}
-
-export default Conversation
