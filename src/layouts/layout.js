@@ -16,6 +16,7 @@ import "../styles/layout.css"
 
 import Header from "../components/Header"
 import Background from "../components/Background"
+import Background2 from '../components/Background2'
 import Footer from "../components/Footer"
 
 const LayoutWrapper = styled.div`
@@ -25,7 +26,7 @@ const LayoutContent = styled.div`
   ${tw`relative`}
 `
 
-const Layout = ({ children }) => {
+const Layout = ({ children,background }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -39,7 +40,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <LayoutWrapper>
-        <Background />
+        {background == 2 ? <Background2/> : <Background />}
         <LayoutContent>
           <Header />
           <main>{children}</main>
